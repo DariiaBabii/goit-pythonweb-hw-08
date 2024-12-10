@@ -14,6 +14,10 @@ def get_db():
     finally:
         db.close()
 
+@app.get("/")
+async def read_root():
+    return {"message": "Welcome to the database"}
+
 @app.post("/contacts/", response_model=schemas.ContactOut)
 def create_contact(contact: schemas.ContactCreate, db: Session = Depends(get_db)):
     return crud.create_contact(db, contact)
